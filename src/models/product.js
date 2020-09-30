@@ -1,9 +1,8 @@
 'use strict';
 
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
-const ProductModel = new Schema({
+const ProductModel = new mongoose.Schema({
     user:  {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
@@ -17,11 +16,4 @@ const ProductModel = new Schema({
     creationDate: {type: Date, default: Date.now},
 }, {versionKey: false});
 
-ProductModel.pre('save', next =>{
-    let now = new Date();
-    if(!this.creationDate){
-        this.creationDate = now;
-    }
-});
-
-module.exports = mongoose.Model('Product', ProductModel);
+module.exports = mongoose.model('Product', ProductModel);

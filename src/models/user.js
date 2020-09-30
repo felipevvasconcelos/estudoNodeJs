@@ -1,9 +1,8 @@
 'use strict';
 
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
-const UserModel = new Schema({
+const UserModel = new mongoose.Schema({
     name: {type: String, required: true, trim: true},
     email: {type: String, required: true, trim: true, unique: true},
     password: {type: String, required: true, trim: true, select: false},
@@ -11,12 +10,4 @@ const UserModel = new Schema({
     creationDate: {type: Date, default: Date.now},
 }, {versionKey: false});
 
-// UserModel.pre('save', next =>{
-//     let now = new Date();
-//     if(!this.creationDate){
-//         this.creationDate = now;
-//     }
-//     next();
-// });
-
-module.exports = mongoose.Model('User', UserModel);
+module.exports = mongoose.model('User', UserModel);

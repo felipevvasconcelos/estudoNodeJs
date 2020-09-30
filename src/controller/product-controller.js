@@ -1,15 +1,25 @@
 'use-strict'
 
-var PRODUCTS = [
-    {'id': 1, 'type': 'tecnologia', 'decription': 'Celular' },
-    {'id': 2, 'type': 'tecnologia', 'decription': 'Notebook2' },
-];
+const repository = require('../repository/product-repository');
 
-function getProducts(){
-    return PRODUCTS;
-}
+exports.getProducts = async(req, res, next) => {
+    try {
+        let dbReturn = await repository.getAll();
+        res.status(200).send(dbReturn);
+    } catch (e) {
+        res.status(500).send({
+            message: 'Ops! Something went wrong.', error: e
+        });
+    }
+};
 
-exports.get = async(req, res, next) => {
-    console.log('entrou no controller PRODUTOS');
-    res.send(getProducts());
+exports.AddProduct = async(req, res, next) => {
+    try {
+        let dbReturnProduct = await repository.add(req.body);
+        res.status(200).send(dbReturnProduct);
+    } catch (e) {
+        res.status(500).send({
+            message: 'Ops! Something went wrong.', error: e
+        });
+    }
 };

@@ -3,10 +3,16 @@ const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
+const userRouter = require('./src/routes/user-route');
+const productRouter = require('./src/routes/product-route');
+
 mongoose.connect('mongodb://localhost:27017/curso_react', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
+
+// const UserModel = require('./src/models/user');
+// const ProductModel = require('./src/models/product');
 
 var HELLO = [
     {'msg': 'Hello Express'}
@@ -24,9 +30,6 @@ app.get('/', function(req, res){
 });
 
 //----------------------------
-
-const userRouter = require('./src/routes/user-route');
-const productRouter = require('./src/routes/product-route');
 
 app.use('/user', userRouter);
 app.use('/products', productRouter);
