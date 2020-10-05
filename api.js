@@ -3,12 +3,14 @@ const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
+
 const userRouter = require('./src/routes/user-route');
 const productRouter = require('./src/routes/product-route');
 
 mongoose.connect('mongodb://localhost:27017/curso_react', {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
 });
 
 // const UserModel = require('./src/models/user');

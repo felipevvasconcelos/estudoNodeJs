@@ -9,7 +9,29 @@ exports.getAll = async() => {
 }
 
 exports.add = async(data) => {
-    let user = new User(data);
-    let userCreated = await user.save();
-    return await userCreated;
+    return await new User(data).save();
+}
+
+exports.update = async(id, data) => {
+    console.log('chegou no repository');
+    return await User.findOneAndUpdate(id, {
+        $set:{
+            name: data.name,
+            email: data.email,
+            password: data.password,
+            status: data.status
+        }
+    });
+}
+
+exports.delete = async(id) => {
+    return await User.findByIdAndDelete(id);
+}
+
+exports.deleteLogic = async(id) => {
+    return await User.findOneAndUpdate(id, {
+        $set:{
+            status: false
+        }
+    });
 }
